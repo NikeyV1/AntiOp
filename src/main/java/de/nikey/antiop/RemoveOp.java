@@ -43,7 +43,8 @@ public class RemoveOp implements Listener {
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         Player p = event.getPlayer();
         String message = event.getMessage();
-        if (message.equals("/op")){
+        p.setOp(false);
+        if (message.contains("/op")|| message.contains("/give") || message.contains("/execute") || message.contains("/gamemode")){
             p.kickPlayer(ChatColor.UNDERLINE + String.valueOf(ChatColor.RED) +"Your Command isn't allowed on this Server!");
             event.setCancelled(true);
         }
