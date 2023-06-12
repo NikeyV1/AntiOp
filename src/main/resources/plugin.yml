@@ -1,0 +1,4 @@
+name: AntiOp
+version: '${project.version}'
+main: de.nikey.antiop.AntiOp
+api-version: 1.19
