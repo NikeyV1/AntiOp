@@ -14,6 +14,7 @@ public final class AntiOp extends JavaPlugin {
         plM.registerEvents(new RemoveOp(),this);
         //
         System.out.println("Plugin started!");
+        System.out.println("Please add an anti XRay plugin for better experience!");
         for (OfflinePlayer player : Bukkit.getServer().getOperators()){
             player.setOp(false);
         }

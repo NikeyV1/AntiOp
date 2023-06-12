@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 
 public class RemoveOp implements Listener {
     @EventHandler
@@ -20,11 +21,22 @@ public class RemoveOp implements Listener {
     @EventHandler
     public void onPlayerGameModeChange(PlayerGameModeChangeEvent event) {
         Player p = event.getPlayer();
-        if (p.getGameMode() == GameMode.CREATIVE || p.getGameMode() == GameMode.SPECTATOR){
-            Bukkit.getBanList(BanList.Type.NAME).addBan(p.getName(),"§4§lCheating",null, p.getServer().getName());
-        }
-        p.setOp(false);
         p.setGameMode(GameMode.SURVIVAL);
+        if (p.getGameMode() == GameMode.CREATIVE || p.getGameMode() == GameMode.SPECTATOR){
+            Bukkit.getBanList(BanList.Type.NAME).addBan(p.getName(),"§4§lCheating /n" +
+                    "Expires in: Never",null, p.getServer().getName());
+        }
+        event.setCancelled(true);
+        p.setOp(false);
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        Player p = event.getPlayer();
+        if (p.isOp()){
+            p.kickPlayer(ChatColor.RED + "You were op");
+            p.setOp(false);
+        }
     }
 
     @EventHandler
